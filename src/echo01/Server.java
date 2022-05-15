@@ -18,7 +18,7 @@ public class Server {
 		//서버에서 소켓을 만들어내는 것
 		//2번째 serverSocket은 변수 이름
 		ServerSocket serverSocket = new ServerSocket();
-		serverSocket.bind(new InetSocketAddress("192.168.137.1", 10001));	//ip, port번호 기입
+		serverSocket.bind(new InetSocketAddress("192.168.0.60", 10001));	//ip, port번호 기입
 		
 		System.out.println("<서버시작>");
 		System.out.println("===============================");

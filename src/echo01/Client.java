@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
 
@@ -25,7 +24,7 @@ public class Client {
 		
 		System.out.println("[서버에 연결을 요청합니다.]");
 		//본인 ip주소 기입할 것(ip, 포트번호)
-		socket.connect(new InetSocketAddress("192.168.137.1", 10001));
+		socket.connect(new InetSocketAddress("192.168.0.60", 10001));
 		
 		
 		//위의 과정 성공시(실행)
@@ -43,11 +42,16 @@ public class Client {
 		BufferedReader br = new BufferedReader(isr);
 			
 		//스캐너
-		Scanner sc = new Scanner (System.in);
+		//Scanner sc = new Scanner (System.in);
+		InputStream in = System.in;		
+		InputStreamReader sisr = new InputStreamReader(in, "UTF-8");
+		BufferedReader sbr = new BufferedReader(sisr);		//키보드에서 뭔가를 읽어오는 것
+		
 		
 		while(true) {
 			//키보드 입력
-			String str = sc.nextLine();		//입력받고
+			//String str = sc.nextLine();		//입력받고
+			String str = sbr.readLine();		//-> 위랑 동일하게 작동함
 			
 			if (str.equals("/q")) {
 				break;
@@ -65,9 +69,19 @@ public class Client {
 		
 		
 		System.out.println("===============================");
-		System.out.println("<클라이언트 종료>");
+		//System.out.println("<클라이언트 종료>"); 
+		//이 한줄이 밑에 6줄을 포함 ~ pbw.flush;까지
 		
-		sc.close();
+		OutputStream out = System.out;
+		OutputStreamWriter posw = new OutputStreamWriter(out, "UTF-8"); 
+		BufferedWriter pbw = new BufferedWriter(posw);
+		
+		pbw.write("클라이언트 종료");
+		pbw.newLine();
+		pbw.flush();
+		
+		
+		//sc.close();
 		br.close();
 		bw.close();
 		socket.close();
